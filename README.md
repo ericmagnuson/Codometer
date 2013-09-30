@@ -8,7 +8,7 @@ Calculate how many miles of code are written in a directory and its subdirectori
 Save and run this script in the topmost directory of your project. Alternatively, run the script from Github (without saving it to your computer) by running the following command on your command line:
 
 ```shell
-bash < <(curl -s https://raw.github.com/ericmagnuson/Codometer/master/Codometer.sh)
+bash <(curl -s https://raw.github.com/ericmagnuson/Codometer/master/Codometer.sh)
 ```
 
 ## License
