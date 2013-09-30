@@ -14,9 +14,10 @@
 #
 # bash <(curl -s https://raw.github.com/ericmagnuson/Codometer/master/Codometer.sh)
 
+white=$(tput setaf 7)
 blue=$(tput setaf 6)
-red=$(tput setaf 1)
 green=$(tput setaf 2)
+red=$(tput setaf 1)
 nc=$(tput sgr0) # No Color
 
 read -e -p "${blue}In your text editor, how many characters
@@ -34,7 +35,7 @@ if [[ $chars_per_inch =~ ^-?[0-9]+$ ]]; then
 	feet=$(echo "scale=2; $chars / $chars_per_inch / 12" | bc)
 	miles=$(echo "scale=2; $chars / $chars_per_inch / 12 / 5280" | bc)
 
-	echo "${green}$miles miles of code"
+	echo "${white}➤  ${green}$miles miles of code"
 	echo "...or $feet feet of code"
 	echo "...or $inches inches of code.${nc}"
 
