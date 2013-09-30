@@ -27,17 +27,37 @@ chars_per_inch=${chars_per_inch:-12}
 
 if [[ $chars_per_inch =~ ^-?[0-9]+$ ]]; then
 
+	# Get the number of chars in the entire directory
 	chars=$(find . \( ! -regex '.*/\..*' \) \
 		! -name 'Codometer.sh' -type f -exec wc -m {} \; 2> /dev/null \
 		| awk '{total += $1} END{print total}')
 
-	inches=$(echo "scale=2; $chars / $chars_per_inch" | bc)
-	feet=$(echo "scale=2; $chars / $chars_per_inch / 12" | bc)
-	miles=$(echo "scale=2; $chars / $chars_per_inch / 12 / 5280" | bc)
+	# Check if bc is installed for doing decimal work.
+	# If not, we will fall back to expr (no decimals).
+	bc_installed=true
+	hash bc 2>/dev/null || bc_installed=false
 
+	if $bc_installed; then
+		inches=$(echo "scale=4; $chars / $chars_per_inch" | bc)
+		feet=$(echo "scale=4; $chars / $chars_per_inch / 12" | bc)
+		miles=$(echo "scale=4; $chars / $chars_per_inch / 12 / 5280" | bc)
+	else
+		inches=$(expr $chars / $chars_per_inch)
+		feet=$(expr $chars / $chars_per_inch / 12)
+		miles=$(expr $chars / $chars_per_inch / 12 / 5280)
+	fi
+
+	echo ""
 	echo "${white}➤  ${green}$miles miles of code"
 	echo "...or $feet feet of code"
 	echo "...or $inches inches of code.${nc}"
+
+	if ! $bc_installed; then
+		echo ""
+		echo "(You don't have bc installed, so we can't"
+		echo "calculate decimals. Please install bc for"
+		echo "more precision in the above distances.)"
+	fi
 
 else
 
