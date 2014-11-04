@@ -12,7 +12,7 @@
 # your project. Alternatively, run the script from Github (without
 # saving it to your computer) by using the following command:
 #
-# bash <(curl -s https://raw.github.com/ericmagnuson/Codometer/master/Codometer.sh)
+# bash <(curl -s https://raw.githubusercontent.com/ericmagnuson/Codometer/master/Codometer.sh)
 
 white=$(tput setaf 7)
 blue=$(tput setaf 6)
